@@ -1,0 +1,25 @@
+void InitD3D(HWND hwnd) {
+	d3d = Direct3DCreate9(D3D_SDK_VERSION);
+
+	D3DPRESENT_PARAMETERS d3ddp;  // d3d device parameter
+	memset(&d3ddp, 0, sizeof(d3ddp));
+	
+	d3ddp.Windowed = TRUE;  // Fullscreen
+	d3ddp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	d3ddp.hDeviceWindow = hwnd;
+	d3ddp.BackBufferFormat = D3DFMT_X8R8G8B8;  // Set the back buffer format to 32-bit
+	d3ddp.BackBufferWidth = SCREEN_WIDTH;
+	d3ddp.BackBufferHeight = SCREEN_HEIGHT;
+	d3ddp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;  // Unlock high FPS
+
+	// Creates a graphics device interface
+	d3d->CreateDevice( D3DADAPTER_DEFAULT,  // Select a graphics device 
+					   D3DDEVTYPE_HAL,  // Hardware Abstraction Layer
+					   hwnd, 
+				       D3DCREATE_SOFTWARE_VERTEXPROCESSING,  // do all 3d calc in software
+					   &d3ddp, 
+					   &d3ddev );
+
+	// Initialize graphics
+	InitGraphics();
+}
